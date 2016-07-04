@@ -10,6 +10,16 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
+let mongoose = require('mongoose');
+
+// add nameOfDatabase
+// let mongoUrl = process.env.MONGODB_URI  || 'mongodb://localhost/nameOfDatabase';
+
+mongoose.connect(mongoUrl, err => {
+  console.log(err || `MongoDB connected to ${mongoUrl}`);
+})
+
+
 let app = express();
 
 let server = http.createServer(app);
@@ -32,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 ////ROUTERS//////
 
-
+app.use('/api', require('./routes/api'));
 
 /////////////////
 
